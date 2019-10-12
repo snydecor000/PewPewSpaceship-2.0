@@ -7,6 +7,12 @@ var scaleFactor = {
     w: 1296//The width of my personal window
 };
 
+var back;
+
+function preload() {
+    back = loadImage('https://cdn.jsdelivr.net/gh/snydecor000/PewPewSpaceship-2.0/assets/spaceBackground.png');
+}
+
 function setup() {
     //Create the canvas then properly size it
     createCanvas(1, 1);
@@ -18,6 +24,7 @@ function draw() {
     rectMode(CENTER);
     rect(resizeX(100), resizeY(100),
         resizeX(100), resizeY(100));
+    image(back,0,0,width,height);
 }
 
 //Function that resizes objects to match current window size
