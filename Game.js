@@ -7,39 +7,12 @@ var scaleFactor = {
     w: 1296//The width of my personal window
 };
 
+var space = {
+    maxVel: 10,
+    deAcc: 0.1
+};
+
 var backImg;
-
-//player
-class Ship {
-    constructor(img) {
-        this.img = img;
-        this.x = width / 2;
-        this.y = height / 2;
-        this.angle = 0;
-    }
-
-    getX() {
-        return resizeX(ship.x);
-    }
-
-    getY() {
-        return resizeY(ship.y);
-    }
-
-    getAngle() {
-        return this.angle;
-    }
-
-    draw() {
-        imageMode(CENTER);
-        translate(this.getX(), this.getY());
-        rotate(this.getAngle());
-        image(this.img, 0, 0, resizeX(this.img.width), resizeY(this.img.height));
-        resetMatrix();
-        translate(0,0);
-        imageMode(CORNER);
-    }
-}
 
 var shipImg;
 
@@ -52,15 +25,10 @@ function preload() {
 
 function setup() {
     //Create the canvas then properly size it
-    createCanvas(1, 1);
+    canvas = createCanvas(1, 1);
     windowResized();
 
-    ship = new Ship(shipImg);
-
-    //Test Ship Render
-    ship.angle = PI / 2;
-    ship.x = 100;//refers to center
-    ship.y = 100;//refers to center
+    ship = new Ship(shipImg, canvas, space);
 }
 
 function draw() {
@@ -71,6 +39,7 @@ function draw() {
     image(backImg, 0, 0, width, height);
     //Draw Ship
     ship.draw();
+    ship.update();
 }
 
 //Function that resizes objects to match current window size
