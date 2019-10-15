@@ -13,7 +13,6 @@ var space = {
 };
 
 var backImg;
-
 var shipImg;
 
 const assets = 'https://cdn.jsdelivr.net/gh/snydecor000/PewPewSpaceship-2.0/assets/';
