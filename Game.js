@@ -7,24 +7,70 @@ var scaleFactor = {
     w: 1296//The width of my personal window
 };
 
-var back;
+var backImg;
+
+//player
+class Ship {
+    constructor(img) {
+        this.img = img;
+        this.x = width / 2;
+        this.y = height / 2;
+        this.angle = 0;
+    }
+
+    getX() {
+        return resizeX(ship.x);
+    }
+
+    getY() {
+        return resizeY(ship.y);
+    }
+
+    getAngle() {
+        return this.angle;
+    }
+
+    draw() {
+        imageMode(CENTER);
+        translate(this.getX(), this.getY());
+        rotate(this.getAngle());
+        image(this.img, 0, 0, resizeX(this.img.width), resizeY(this.img.height));
+        resetMatrix();
+        translate(0,0);
+        imageMode(CORNER);
+    }
+}
+
+var shipImg;
+
+const assets = 'https://cdn.jsdelivr.net/gh/snydecor000/PewPewSpaceship-2.0/assets/';
 
 function preload() {
-    back = loadImage('https://cdn.jsdelivr.net/gh/snydecor000/PewPewSpaceship-2.0/assets/spaceBackground.png');
+    backImg = loadImage(assets + 'spaceBackground.png');
+    shipImg = loadImage(assets + 'ship.png');
 }
 
 function setup() {
     //Create the canvas then properly size it
     createCanvas(1, 1);
     windowResized();
+
+    ship = new Ship(shipImg);
+
+    //Test Ship Render
+    ship.angle = PI / 2;
+    ship.x = 100;//refers to center
+    ship.y = 100;//refers to center
 }
 
 function draw() {
     background(0);
-    rectMode(CENTER);
-    rect(resizeX(100), resizeY(100),
-        resizeX(100), resizeY(100));
-    image(back,0,0,width,height);
+
+    //background Image
+    imageMode(CORNER);
+    image(backImg, 0, 0, width, height);
+    //Draw Ship
+    ship.draw();
 }
 
 //Function that resizes objects to match current window size
@@ -47,7 +93,4 @@ function windowResized() {
     let widthLimit = round(heightLimit * (16.0 / 9.0));
 
     resizeCanvas(widthLimit, heightLimit);
-
-    //print("Height: ", heightLimit);
-    //print("Width: ", widthLimit);
 }
