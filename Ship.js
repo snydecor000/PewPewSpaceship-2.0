@@ -84,6 +84,22 @@ class Ship {
         if (abs(this.yVel) < 0.1 && !keyIsDown(UP_ARROW) && !keyIsDown(DOWN_ARROW))
             this.yVel = 0;
 
+        //Make ship bounce off of walls
+        if (this.getY() < 0)
+            this.yVel *= -1;
+        if (this.getY() > this.canvas.height)
+            this.yVel *= -1;
+        if (this.getX() > this.canvas.width)
+            this.xVel *= -1;
+        if (this.getX() < 0)
+            this.xVel *= -1;
+
+        //Point ship towards the mouse
+        if(mouseX-this.getX() >= 0)
+            this.angle = HALF_PI + Math.atan((mouseY-this.getY())/(mouseX-this.getX()));
+        else
+            this.angle = PI + HALF_PI + Math.atan((mouseY-this.getY())/(mouseX-this.getX()));
+
         //Actually move the ship
         this.x += this.xVel;
         this.y += this.yVel;

@@ -14,6 +14,7 @@ var space = {
 
 var backImg;
 var shipImg;
+var canvas;
 
 const assets = 'https://cdn.jsdelivr.net/gh/snydecor000/PewPewSpaceship-2.0/assets/';
 
@@ -26,7 +27,7 @@ function setup() {
     //Create the canvas then properly size it
     canvas = createCanvas(1, 1);
     windowResized();
-
+    print(canvas);
     ship = new Ship(shipImg, canvas, scaleFactor, space);
 }
 
@@ -35,7 +36,7 @@ function draw() {
 
     //background Image
     imageMode(CORNER);
-    image(backImg, 0, 0, width, height);
+    image(backImg, 0, 0, canvas.width, canvas.height);
     //Draw Ship
     ship.draw();
     ship.update();
@@ -51,4 +52,5 @@ function windowResized() {
     let widthLimit = round(heightLimit * (16.0 / 9.0));
 
     resizeCanvas(widthLimit, heightLimit);
+    print(canvas);
 }
