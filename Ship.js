@@ -1,26 +1,40 @@
 //Player Ship
 class Ship {
-    constructor(img, canvas, space) {
+    constructor(img, canvas, scaleFactor, space) {
         this.img = img;
         this.canvas = canvas;
+        this.scaleFactor = scaleFactor;
         this.space = space;
         this.x = canvas.width / 2;
         this.y = canvas.height / 2;
         this.xVel = 0;
         this.yVel = 0;
-        this.xAcc = 0.5;
-        this.yAcc = 0.5;
+        this.xAcc = 0.25;
+        this.yAcc = 0.25;
         this.angle = 0;
     }
 
+    //Function that resizes objects to match current window size
+    resizeX(x) {
+        return round(x * (this.canvas.width / this.scaleFactor.w));
+    }
+
+    //Function that resizes objects to match current window size
+    resizeY(y) {
+        return round(y * (this.canvas.height / this.scaleFactor.h));
+    }
+
+    //returns scaled x value for ship
     getX() {
-        return resizeX(ship.x);
+        return this.resizeX(this.x);
     }
 
+    //returns scaled y value for ship
     getY() {
-        return resizeY(ship.y);
+        return this.resizeY(this.y);
     }
 
+    //returns angle
     getAngle() {
         return this.angle;
     }
@@ -29,7 +43,7 @@ class Ship {
         imageMode(CENTER);
         translate(this.getX(), this.getY());
         rotate(this.getAngle());
-        image(this.img, 0, 0, resizeX(this.img.width), resizeY(this.img.height));
+        image(this.img, 0, 0, this.resizeX(this.img.width), this.resizeY(this.img.height));
         resetMatrix();
         translate(-this.getX(), -this.getY());
         imageMode(CORNER);

@@ -8,8 +8,8 @@ var scaleFactor = {
 };
 
 var space = {
-    maxVel: 10,
-    deAcc: 0.1
+    maxVel: 5,
+    deAcc: 0.025
 };
 
 var backImg;
@@ -27,7 +27,7 @@ function setup() {
     canvas = createCanvas(1, 1);
     windowResized();
 
-    ship = new Ship(shipImg, canvas, space);
+    ship = new Ship(shipImg, canvas, scaleFactor, space);
 }
 
 function draw() {
@@ -39,16 +39,6 @@ function draw() {
     //Draw Ship
     ship.draw();
     ship.update();
-}
-
-//Function that resizes objects to match current window size
-function resizeX(x) {
-    return round(x * (width / scaleFactor.w));
-}
-
-//Function that resizes objects to match current window size
-function resizeY(y) {
-    return round(y * (height / scaleFactor.h));
 }
 
 //Event triggered when the window is resized
