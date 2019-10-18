@@ -14,23 +14,44 @@ var space = {
 
 var backImg;
 var shipImg;
+var pewSound;
+var clokSound;
 var canvas;
 
 const assets = 'https://cdn.jsdelivr.net/gh/snydecor000/PewPewSpaceship-2.0/assets/';
 
 function preload() {
+    //load Image Assets
     backImg = loadImage(assets + 'spaceBackground.png');
     shipImg = loadImage(assets + 'ship.png');
+    //load Sound Assets
+    pewSound = loadSound(assets + 'Pew.ogg');
+    pewSound.setVolume(0.3);
+    clokSound = loadSound(assets + 'Clok.ogg');
+    clokSound.setVolume(1);
+    upgradeMusic = loadSound(assets + '05_ComeAndFindMe.ogg');
+    upgradeMusic.setVolume(0.5);
+    instructionMusic = loadSound(assets + '08_Ascending.ogg');
+    instructionMusic.setVolume(0.6);
+    gameMusic = loadSound(assets + 'SpaceTrip.ogg');
+    gameMusic.setVolume(0.5);
+    titleScreenMusic = loadSound(assets + '10_Arpanauts.ogg');
+    titleScreenMusic.setVolume(0.3);
 }
 
+//Triggered once after preload()
 function setup() {
     //Create the canvas then properly size it
     canvas = createCanvas(1, 1);
     windowResized();
-    print(canvas);
+
     ship = new Ship(shipImg, canvas, scaleFactor, space);
+
+    getAudioContext().resume();
+    titleScreenMusic.play();
 }
 
+//Triggered before every frame
 function draw() {
     background(0);
 
@@ -52,5 +73,12 @@ function windowResized() {
     let widthLimit = round(heightLimit * (16.0 / 9.0));
 
     resizeCanvas(widthLimit, heightLimit);
-    print(canvas);
+}
+
+function mouseClicked() {
+    getAudioContext().resume();
+}
+
+function keyTyped() {
+    getAudioContext().resume();
 }
