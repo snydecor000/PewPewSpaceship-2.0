@@ -50,38 +50,43 @@ class Ship {
     }
 
     update() {
+        let upPressed = keyIsDown(UP_ARROW) || keyIsDown(87);
+        let downPressed = keyIsDown(DOWN_ARROW) || keyIsDown(83);
+        let rightPressed = keyIsDown(RIGHT_ARROW) || keyIsDown(68);
+        let leftPressed = keyIsDown(LEFT_ARROW) || keyIsDown(65);
+
         //Calculate xVel and yVel
-        if (this.xVel > -this.space.maxVel && keyIsDown(LEFT_ARROW))
+        if (this.xVel > -this.space.maxVel && leftPressed)
             this.xVel -= this.xAcc;
-        else if (keyIsDown(LEFT_ARROW))
+        else if (leftPressed)
             this.xVel = -this.space.maxVel;
-        if (this.xVel < this.space.maxVel && keyIsDown(RIGHT_ARROW))
+        if (this.xVel < this.space.maxVel && rightPressed)
             this.xVel += this.xAcc;
-        else if (keyIsDown(RIGHT_ARROW))
+        else if (rightPressed)
             this.xVel = this.space.maxVel;
-        if (this.yVel > -this.space.maxVel && keyIsDown(UP_ARROW))
+        if (this.yVel > -this.space.maxVel && upPressed)
             this.yVel -= this.yAcc;
-        else if (keyIsDown(UP_ARROW))
+        else if (upPressed)
             this.yVel = -this.space.maxVel;
-        if (this.yVel < this.space.maxVel && keyIsDown(DOWN_ARROW))
+        if (this.yVel < this.space.maxVel && downPressed)
             this.yVel += this.yAcc;
-        else if (keyIsDown(DOWN_ARROW))
+        else if (downPressed)
             this.yVel = this.space.maxVel;
 
         //If not moving, get slowed by space friction
-        if (this.xVel != 0 && this.xVel > 0 && !keyIsDown(RIGHT_ARROW))
+        if (this.xVel != 0 && this.xVel > 0 && !rightPressed)
             this.xVel -= this.space.deAcc;
-        if (this.xVel != 0 && this.xVel < 0 && !keyIsDown(LEFT_ARROW))
+        if (this.xVel != 0 && this.xVel < 0 && !leftPressed)
             this.xVel += this.space.deAcc;
-        if (this.yVel != 0 && this.yVel > 0 && !keyIsDown(DOWN_ARROW))
+        if (this.yVel != 0 && this.yVel > 0 && !downPressed)
             this.yVel -= this.space.deAcc;
-        if (this.yVel != 0 && this.yVel < 0 && !keyIsDown(UP_ARROW))
+        if (this.yVel != 0 && this.yVel < 0 && !upPressed)
             this.yVel += this.space.deAcc;
 
         //Make sure floating point errors don't make ship drift
-        if (abs(this.xVel) < 0.1 && !keyIsDown(RIGHT_ARROW) && !keyIsDown(LEFT_ARROW))
+        if (abs(this.xVel) < 0.1 && !rightPressed && !leftPressed)
             this.xVel = 0;
-        if (abs(this.yVel) < 0.1 && !keyIsDown(UP_ARROW) && !keyIsDown(DOWN_ARROW))
+        if (abs(this.yVel) < 0.1 && !upPressed && !downPressed)
             this.yVel = 0;
 
         //Make ship bounce off of walls
@@ -95,10 +100,12 @@ class Ship {
             this.xVel *= -1;
 
         //Point ship towards the mouse
-        if(mouseX-this.getX() >= 0)
-            this.angle = HALF_PI + Math.atan((mouseY-this.getY())/(mouseX-this.getX()));
+        if (mouseX - this.getX() >= 0)
+            this.angle = HALF_PI +
+                Math.atan((mouseY - this.getY()) / (mouseX - this.getX()));
         else
-            this.angle = PI + HALF_PI + Math.atan((mouseY-this.getY())/(mouseX-this.getX()));
+            this.angle = PI + HALF_PI +
+                Math.atan((mouseY - this.getY()) / (mouseX - this.getX()));
 
         //Actually move the ship
         this.x += this.xVel;
