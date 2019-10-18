@@ -12,10 +12,16 @@ var space = {
     deAcc: 0.025
 };
 
+//Asset Vars
 var backImg;
 var shipImg;
 var pewSound;
 var clokSound;
+var upgradeMusic;
+var instructionMusic;
+var gameMusic;
+var titleScreenMusic;
+
 var canvas;
 
 const assets = 'https://cdn.jsdelivr.net/gh/snydecor000/PewPewSpaceship-2.0/assets/';
@@ -75,10 +81,12 @@ function windowResized() {
     resizeCanvas(widthLimit, heightLimit);
 }
 
+//Chrome makes you resume the audioContext after a user input
 function mouseClicked() {
     getAudioContext().resume();
 }
 
+//Chrome makes you resume the audioContext after a user input
 function keyTyped() {
     getAudioContext().resume();
 }
