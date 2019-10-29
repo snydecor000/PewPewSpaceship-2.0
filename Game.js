@@ -14,7 +14,7 @@ var space = {
 
 //Asset Vars
 var backImg;
-var shipImg;
+var shipImg = [];
 var pewSound;
 var clokSound;
 var upgradeMusic;
@@ -29,7 +29,9 @@ const assets = 'https://cdn.jsdelivr.net/gh/snydecor000/PewPewSpaceship-2.0/asse
 function preload() {
     //load Image Assets
     backImg = loadImage(assets + 'spaceBackground.png');
-    shipImg = loadImage(assets + 'ship.png');
+    //shipImg = loadImage(assets + 'ship.png');
+    for (let i = 0; i < 5; i++)
+        shipImg.push(loadImage(assets + 'ship' + i + '.png'));
     //load Sound Assets
     pewSound = loadSound(assets + 'Pew.ogg');
     pewSound.setVolume(0.3);

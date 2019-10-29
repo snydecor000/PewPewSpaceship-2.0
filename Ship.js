@@ -12,6 +12,8 @@ class Ship {
         this.xAcc = 0.25;
         this.yAcc = 0.25;
         this.angle = 0;
+        this.thruster = false;
+        this.frame = 0;
     }
 
     //Function that resizes objects to match current window size
@@ -40,13 +42,22 @@ class Ship {
     }
 
     draw() {
+        if(this.thruster){
+            this.frame ++;
+            if(this.frame >= this.img.length){
+                this.frame = 1;
+            }
+        }
+        else{
+            this.frame = 0;
+        }
         imageMode(CENTER);
         translate(this.getX(), this.getY());
         rotate(this.getAngle());
-        image(this.img, 0, 0, this.resizeX(this.img.width), this.resizeY(this.img.height));
+        image(this.img[this.frame], 0, 0, this.resizeX(this.img[this.frame].width), this.resizeY(this.img[this.frame].height));
         resetMatrix();
         translate(-this.getX(), -this.getY());
-        imageMode(CORNER);
+        imageMode(CORNER); 
     }
 
     update() {
@@ -54,6 +65,7 @@ class Ship {
         let downPressed = keyIsDown(DOWN_ARROW) || keyIsDown(83);
         let rightPressed = keyIsDown(RIGHT_ARROW) || keyIsDown(68);
         let leftPressed = keyIsDown(LEFT_ARROW) || keyIsDown(65);
+        this.thruster = upPressed || downPressed || rightPressed || leftPressed;
 
         //Calculate xVel and yVel
         if (this.xVel > -this.space.maxVel && leftPressed)
