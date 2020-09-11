@@ -1,7 +1,8 @@
 //Player Ship
 class Ship {
-    constructor(img, canvas, scaleFactor, space) {
+    constructor(img, laserImg, canvas, scaleFactor, space) {
         this.img = img;
+        this.laserImg = laserImg;
         this.canvas = canvas;
         this.scaleFactor = scaleFactor;
         this.space = space;
@@ -14,6 +15,7 @@ class Ship {
         this.angle = 0;
         this.thruster = false;
         this.frame = 0;
+        this.laserGroup = [];
     }
 
     //Function that resizes objects to match current window size
@@ -61,6 +63,13 @@ class Ship {
         resetMatrix();
         translate(-this.getX(), -this.getY());
         imageMode(CORNER); 
+
+        //TODO Yea... this is really slow after playing for a while...
+        for(let i = 0;i < this.laserGroup.length;i++){
+            if(this.laserGroup[i] != null){
+                this.laserGroup[i].draw();
+            }
+        }
     }
 
     update() {
@@ -128,5 +137,20 @@ class Ship {
         //Actually move the ship
         this.x += this.xVel;
         this.y += this.yVel;
+
+        //Fire Lasers
+        if(mouseLeft){
+            var laser = new Laser(this.laserImg, this.canvas,this.scaleFactor,this.space,this.x,this.y,this.angle);
+            this.laserGroup.push(laser);
+        }
+
+        for(let i = 0;i < this.laserGroup.length;i++){
+            if(this.laserGroup[i] != null){
+                this.laserGroup[i].update();
+                if(this.laserGroup[i].isDead()){
+                    this.laserGroup.splice(i,1);
+                }
+            }
+        }
     }
 }

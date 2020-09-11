@@ -9,12 +9,14 @@ var scaleFactor = {
 
 var space = {
     maxVel: 5,
+    laserVel: 5,
     deAcc: 0.025
 };
 
 //Asset Vars
 var backImg;
 var shipImg = [];
+var laserImg;
 var pewSound;
 var clokSound;
 var upgradeMusic;
@@ -33,6 +35,7 @@ function preload() {
     //shipImg = loadImage(assets + 'ship.png');
     for (let i = 0; i < 5; i++)
         shipImg.push(loadImage(assets + 'ship' + i + '.png'));
+    laserImg = loadImage(assets + 'laser.png');
     //load Sound Assets
     pewSound = loadSound(assets + 'Pew.ogg');
     pewSound.setVolume(0.3);
@@ -55,7 +58,7 @@ function setup() {
     windowResized();
 
     //new ship
-    ship = new Ship(shipImg, canvas, scaleFactor, space);
+    ship = new Ship(shipImg, laserImg, canvas, scaleFactor, space);
 
     getAudioContext().resume();
     titleScreenMusic.play();
