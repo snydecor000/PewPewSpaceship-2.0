@@ -51,12 +51,9 @@ class Laser {
         rotate(this.getAngle());
         image(this.img, 0, 0, this.resizeX(this.img.width), this.resizeY(this.img.height));
         resetMatrix();
-        translate(-this.getX(), -this.getY());
-        imageMode(CORNER);
     }
 
     update(){
-        print('SPAM');
         //Indicate that the laser should die if it goes off screen
         if (this.getY() < -20)
             this.dead = true;

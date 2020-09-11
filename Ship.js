@@ -44,6 +44,15 @@ class Ship {
     }
 
     draw() {
+        //Drawing the Laser Beams
+        for(let i = 0;i < this.laserGroup.length;i++){
+            if(this.laserGroup[i] != null){
+                this.laserGroup[i].draw();
+            }
+        }
+
+        //Drawing the ship
+
         //handles switching between the different frames of the ship flame animation
         if(this.thruster){
             this.frame ++;
@@ -56,20 +65,12 @@ class Ship {
         }
 
         //draw the frame at the correct position and rotated the correct amount
+        resetMatrix();
         imageMode(CENTER);
         translate(this.getX(), this.getY());
         rotate(this.getAngle());
         image(this.img[this.frame], 0, 0, this.resizeX(this.img[this.frame].width), this.resizeY(this.img[this.frame].height));
         resetMatrix();
-        translate(-this.getX(), -this.getY());
-        imageMode(CORNER); 
-
-        //TODO Yea... this is really slow after playing for a while...
-        for(let i = 0;i < this.laserGroup.length;i++){
-            if(this.laserGroup[i] != null){
-                this.laserGroup[i].draw();
-            }
-        }
     }
 
     update() {

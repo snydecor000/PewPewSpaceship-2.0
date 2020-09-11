@@ -9,7 +9,7 @@ var scaleFactor = {
 
 var space = {
     maxVel: 5,
-    laserVel: 5,
+    laserVel: 20,
     deAcc: 0.025
 };
 
