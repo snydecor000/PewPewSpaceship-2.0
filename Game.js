@@ -23,6 +23,7 @@ var gameMusic;
 var titleScreenMusic;
 
 var canvas;
+var ship;
 
 const assets = 'https://cdn.jsdelivr.net/gh/snydecor000/PewPewSpaceship-2.0/assets/';
 
@@ -53,6 +54,7 @@ function setup() {
     canvas = createCanvas(1, 1);
     windowResized();
 
+    //new ship
     ship = new Ship(shipImg, canvas, scaleFactor, space);
 
     getAudioContext().resume();
@@ -61,6 +63,7 @@ function setup() {
 
 //Triggered before every frame
 function draw() {
+    //black background: clear screen
     background(0);
 
     //background Image

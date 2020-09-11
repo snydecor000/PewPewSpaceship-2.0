@@ -42,15 +42,18 @@ class Ship {
     }
 
     draw() {
+        //handles switching between the different frames of the ship flame animation
         if(this.thruster){
             this.frame ++;
             if(this.frame >= this.img.length){
-                this.frame = 1;
+                this.frame = 1;//frame 0 is ship with no flame
             }
         }
         else{
             this.frame = 0;
         }
+
+        //draw the frame at the correct position and rotated the correct amount
         imageMode(CENTER);
         translate(this.getX(), this.getY());
         rotate(this.getAngle());
@@ -64,7 +67,10 @@ class Ship {
         let upPressed = keyIsDown(UP_ARROW) || keyIsDown(87);
         let downPressed = keyIsDown(DOWN_ARROW) || keyIsDown(83);
         let rightPressed = keyIsDown(RIGHT_ARROW) || keyIsDown(68);
+        let mouseLeft = mouseIsPressed && mouseButton === LEFT;
         let leftPressed = keyIsDown(LEFT_ARROW) || keyIsDown(65);
+
+        //thruster: if the user is pressing a move key
         this.thruster = upPressed || downPressed || rightPressed || leftPressed;
 
         //Calculate xVel and yVel
